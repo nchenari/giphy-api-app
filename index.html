@@ -41,7 +41,6 @@
         <div class="footer-copyright">
           <div class="container">
           © 2018 Nima Chenari
-          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
           </div>
         </div>
       </footer>
@@ -80,31 +79,37 @@
             
             // loop through each result item
             for (var i = 0; i < results.length; i++) {
-
-                // create and storing a div tag
-                var topicDiv = $("<div>");
-
-                // create and store an image tag with class gif and properties 
-                // .. src, data-still and still link, data-animate and animated link, 
-                // ..data-state starting at "still"
-                var topicImage = $("<img>").attr("src", results[i].images.fixed_height.url);
-
-                topicImage.addClass("gif");
-                topicImage.attr("data-state", "still");
-                topicImage.attr("data-still", results[i].images.fixed_height_still.url);
-                topicImage.attr("src", topicImage.attr("data-still"));
-                topicImage.attr("data-animate", results[i].images.fixed_height.url);
-
-                // create a paragraph tag with the result item's rating
-                var p = $("<p>").text("Rating: " + results[i].rating);
-            
-                // append the paragram and image tag to the topic div
-                topicDiv.append(topicImage, p);
-
-                // prepending the topicDiv to the HTML page in the "gifs-appear-here" div
-                $("#gifs-appear-here").prepend(topicDiv);
+                // render each gif and supporting components in a materialize card
+                renderCard(results[i]);
             }
         });
+    }
+
+    function renderCard(result) {
+
+        // create and storing a div tag
+        var topicResultDiv = $("<div>");
+        
+        // create and store an image tag with class gif and properties 
+        // .. src, data-still and still link, data-animate and animated link, 
+        // ..data-state starting at "still"
+        var topicImage = $("<img>").attr("src", result.images.fixed_height.url);
+
+        topicImage.addClass("gif")
+            .attr("data-state", "still")
+            .attr("data-still", result.images.fixed_height_still.url)
+            .attr("src", topicImage.attr("data-still"))
+            .attr("data-animate", result.images.fixed_height.url);
+
+        // create a paragraph tag with the result item's rating
+        var p = $("<p>").text("Rating: " + result.rating);
+
+        // create card in div
+        topicResultDiv.html("<div class='row'><div class='col s12 m7'><div class='card'><div class='card-image'>" + topicImage.prop('outerHTML') + "</div><div class='card-content'>" + p.prop('outerHTML') + "</div><div class='card-action'><a href='#'>Source</a></div></div></div></div>");
+
+        // prepending the topicResultDiv to the HTML page in the "gifs-appear-here" div
+        $("#gifs-appear-here").prepend(topicResultDiv);
+        
     }
 
     function toggleGif() {
