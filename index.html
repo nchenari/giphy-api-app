@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GIPHY API APP</title>
+</head>
+
+<body>
+
+  
+  <!-- Rendered Buttons will get Dumped Here  -->
+  <div id="buttons-view"></div>
+
+  <form id="gif-form">
+      <label for="topic-input">Add a Topic</label>
+      <input type="text" id="topic-input"><br>
+
+      <!-- Button triggers new gif topic to be added  -->
+      <input id="add-topic" type="submit" value="Add Gif Topic">
+  </form>   
+
+
+
+  <!-- javascript at end of doc -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // array of strings with interesting topics
+    var topics = ["cat", "dog", "mouse", "bird", "ferret", "weasel", "bear"];
+
+    // display gifs when already generated topic button is clicked
+    function displayGifs() {
+
+    }
+
+    // Function for displaying gif topic button
+    function renderButtons() {
+
+        // Delete the gif topic buttons before adding new ones 
+        // (necessary otherwise we will have repeat buttons)
+        $("#buttons-view").empty();
+
+        // Loop through the array of topics
+        for (var i = 0; i < topics.length; i++) {
+            
+            // dynamically generate buttons for each movie in the array
+            var topicBtn = $("<button>");
+            // add a class to our button
+            topicBtn.addClass("gif-topic");
+            // add data-attribute
+            topicBtn.attr("data-name", topics[i]);
+            // provide the initial button text
+            topicBtn.text(topics[i]);
+            // add the button to the html
+            $("#buttons-view").append(topicBtn);
+        }
+    }
+
+    // function handles events to add button
+    $("#add-topic").on("click", function(event) {
+        // Prevent the button default behavior when clicked (which is submitting a form)
+        event.preventDefault();
+
+        // grab input from the textbox
+        var topic = $("#topic-input").val().trim();
+
+        // add the topic from the textbox to our array
+        topics.push(topic);
+
+        // call renderButton which adds buttons for each topic
+        renderButtons();
+
+    });
+
+    // function triggered when dynamically added button is clicked
+    // adding the event listener to the document because it will work for dynamically gernerated elements
+    $(document).on("click", ".gif-topic", displayGifs);
+
+    // Call the renderButton function to display the intial buttons
+    renderButtons();
+  </script>
+</body>
+
+</html>
