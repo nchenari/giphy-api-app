@@ -11,26 +11,70 @@
   
   <!-- Rendered Buttons will get Dumped Here  -->
   <div id="buttons-view"></div>
-
+  <br><br>
   <form id="gif-form">
       <label for="topic-input">Add a Topic</label>
       <input type="text" id="topic-input"><br>
 
       <!-- Button triggers new gif topic to be added  -->
       <input id="add-topic" type="submit" value="Add Gif Topic">
-  </form>   
+  </form>
+  <br><br>
 
+  <!-- Gifs will be dumped here -->
+  <div id="gifs-appear-here"></div>
 
 
   <!-- javascript at end of doc -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
+
+    // GIPHY API key
+    const API_KEY = "odMc1jufuWOhI5KTz3DPDDppqago4sts";
+    
     // array of strings with interesting topics
     var topics = ["cat", "dog", "mouse", "bird", "ferret", "weasel", "bear"];
 
     // display gifs when already generated topic button is clicked
     function displayGifs() {
+        // grab topic from data-topic property value from the button
+        var topic = $(this).attr("data-topic");
 
+        // construct a queryURL using the gif topic name
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        topic + "&api_key=" + API_KEY + "&limit=10";
+
+        // perform an AJAX request with the queryURL
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+
+            console.log(queryURL);
+            console.log(response);
+
+            // store data from request in results variable 
+            var results = response.data;
+            
+            // loop through each result item
+            for (var i = 0; i < results.length; i++) {
+
+                // create and storing a div tag
+                var topicDiv = $("<div>");
+
+                // create and store an image tag
+                var topicImage = $("<img>").attr("src", results[i].images.fixed_height.url);
+
+                // create a paragraph tag with the result item's rating
+                var p = $("<p>").text("Rating: " + results[i].rating);
+
+                // append the paragram and image tag to the topic div
+                topicDiv.append(topicImage, p);
+
+                // prepending the topicDiv to the HTML page in the "gifs-appear-here" div
+                $("#gifs-appear-here").prepend(topicDiv);
+            }
+        });
     }
 
     // Function for displaying gif topic button
@@ -48,7 +92,7 @@
             // add a class to our button
             topicBtn.addClass("gif-topic");
             // add data-attribute
-            topicBtn.attr("data-name", topics[i]);
+            topicBtn.attr("data-topic", topics[i]);
             // provide the initial button text
             topicBtn.text(topics[i]);
             // add the button to the html
