@@ -3,26 +3,52 @@
 <head>
   <meta charset="utf-8">
   <title>GIPHY API APP</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+  <!-- layout starts with navbar -->
+  <div class="navbar">
+        <nav>
+            <div class="nav-wrapper">
+            <a class="brand-logo" href="./index.html"> &nbsp;Giphy-App!</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Favorites</a></li>
+            </ul>
+            </div>
+        </nav>
+  </div>
+
+  <!-- page content -->
+  <div id="container">
+        <form id="gif-form">
+            <label for="topic-input">Add a Topic</label>
+            <input type="text" id="topic-input"><br>
+        
+            <!-- Button triggers new gif topic to be added  -->
+            <input id="add-topic" type="submit" value="Add Gif Topic">
+        </form>
+  </div>
+
   <!-- Rendered Buttons will get Dumped Here  -->
   <div id="buttons-view"></div>
-  <br><br>
-  <form id="gif-form">
-      <label for="topic-input">Add a Topic</label>
-      <input type="text" id="topic-input"><br>
-
-      <!-- Button triggers new gif topic to be added  -->
-      <input id="add-topic" type="submit" value="Add Gif Topic">
-  </form>
-  <br><br>
 
   <!-- Gifs will be dumped here -->
   <div id="gifs-appear-here"></div>
 
+  <footer class="page-footer">
+        <div class="footer-copyright">
+          <div class="container">
+          © 2018 Nima Chenari
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
 
   <!-- javascript at end of doc -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   <script type="text/javascript">
 
     // GIPHY API key
@@ -71,7 +97,7 @@
 
                 // create a paragraph tag with the result item's rating
                 var p = $("<p>").text("Rating: " + results[i].rating);
-
+            
                 // append the paragram and image tag to the topic div
                 topicDiv.append(topicImage, p);
 
@@ -127,6 +153,9 @@
 
         // grab input from the textbox
         var topic = $("#topic-input").val().trim();
+
+        // remove text from input after topic retrieved
+        $("#topic-input").val('');
 
         // add the topic from the textbox to our array
         topics.push(topic);
