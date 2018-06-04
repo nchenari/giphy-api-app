@@ -29,14 +29,15 @@
             <!-- Button triggers new gif topic to be added  -->
             <input id="add-topic" type="submit" value="Add Gif Topic">
         </form>
+        <!-- Rendered Buttons will get Dumped Here  -->
+        <div id="buttons-view"></div>
+
+        <!-- Gifs will be dumped here -->
+        <div id="gifs-appear-here" class="row"></div>
+        
   </div>
 
-  <!-- Rendered Buttons will get Dumped Here  -->
-  <div id="buttons-view"></div>
-
-  <!-- Gifs will be dumped here -->
-  <div id="gifs-appear-here"></div>
-
+  <!-- page footer -->
   <footer class="page-footer">
         <div class="footer-copyright">
           <div class="container">
@@ -54,7 +55,7 @@
     const API_KEY = "odMc1jufuWOhI5KTz3DPDDppqago4sts";
     
     // array of strings with interesting topics
-    var topics = ["cat", "dog", "mouse", "bird", "ferret", "weasel", "bear"];
+    var topics = ["cat", "mouse", "bird", "ferret", "weasel", "bear"];
 
     // display gifs when already generated topic button is clicked
     function displayGifs() {
@@ -105,7 +106,7 @@
         var p = $("<p>").text("Rating: " + result.rating);
 
         // create card in div
-        topicResultDiv.html("<div class='row'><div class='col s12 m7'><div class='card'><div class='card-image'>" + topicImage.prop('outerHTML') + "</div><div class='card-content'>" + p.prop('outerHTML') + "</div><div class='card-action'><a href='#'>Source</a></div></div></div></div>");
+        topicResultDiv.html("<div class='col s12 m6 l6'><div class='card'><div class='card-image'>" + topicImage.prop('outerHTML') + "</div><div class='card-content'>" + p.prop('outerHTML') + "</div><div class='card-action'><a href=" + result.images.fixed_height.url + ">Source</a></div></div></div>");
 
         // prepending the topicResultDiv to the HTML page in the "gifs-appear-here" div
         $("#gifs-appear-here").prepend(topicResultDiv);
