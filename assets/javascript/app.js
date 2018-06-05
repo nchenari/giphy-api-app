@@ -1,6 +1,4 @@
  
- 
- 
  // GIPHY API key
  const API_KEY = "odMc1jufuWOhI5KTz3DPDDppqago4sts";
     
@@ -54,9 +52,10 @@
 
      // create a paragraph tag with the result item's rating
      var p = $("<p>").text("Rating: " + result.rating);
+     p.addClass("rating");
 
      // create card in div
-     topicResultDiv.html("<div class='col s12 m12 l6'><div class='card'><div class='card-image'>" + topicImage.prop('outerHTML') + "</div><div class='card-content'>" + p.prop('outerHTML') + "</div><div class='card-action'><a href=" + result.images.fixed_height.url + ">Source</a></div></div></div>");
+     topicResultDiv.html("<div class='col s12 m12 l6'><div class='card gif-card'><div class='card-image'>" + topicImage.prop('outerHTML') + "</div><div class='card-content'>" + p.prop('outerHTML') + "</div><div class='card-action'><a href=" + result.images.fixed_height.url + ">Source</a></div></div></div>");
 
      // prepending the topicResultDiv to the HTML page in the "gifs-appear-here" div
      $("#gifs-appear-here").prepend(topicResultDiv);
@@ -92,7 +91,7 @@
          // dynamically generate buttons for each movie in the array
          var topicBtn = $("<button>");
          // add a class to our button
-         topicBtn.addClass("gif-topic");
+         topicBtn.addClass("gif-topic waves-effect waves-light btn-large");
          // add data-attribute
          topicBtn.attr("data-topic", topics[i]);    
          // provide the initial button text
@@ -110,15 +109,25 @@
      // grab input from the textbox
      var topic = $("#topic-input").val().trim();
 
-     // remove text from input after topic retrieved
-     $("#topic-input").val('');
+     // check if empty and already exist
+     if (topic == "") {
+        
+        alert("Please enter a topic into the text box");
+     } else if (topics.indexOf(topic) != -1) {
+        // remove text from input
+        $("#topic-input").val('');
+        
+        alert("Topic already exists. Please enter a new topic")
+     } else {
+        // remove text from input after topic retrieved
+        $("#topic-input").val('');
 
-     // add the topic from the textbox to our array
-     topics.push(topic);
+        // add the topic from the textbox to our array
+        topics.push(topic);
 
-     // call renderButton which adds buttons for each topic
-     renderButtons();
-
+        // call renderButton which adds buttons for each topic
+        renderButtons();
+     }
  });
 
  // function triggered when dynamically added button is clicked

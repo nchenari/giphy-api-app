@@ -2,12 +2,57 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-image: url("../../assets/images/concrete_seamless.png");
+    background-repeat: repeat; 
   }
 
   main {
     flex: 1 0 auto;
   }
+
+  #gif-form {
+    background-color: white;
+  }
       
+  #buttons-view {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: solid grey;
+  }
+
+  #gif-form {
+    margin: 20px;
+    border: solid grey;
+  }
+
+  .gif-topic {
+    margin: 2px;
+  }
+
+  .gif-card {
+    margin-left: 13px;
+    margin-right: 13px;
+  }
+
+  #add-topic {
+    background-color: #26a69a;
+    color: white;
+    font-size: 16px;
+    padding: 20px;
+    margin: 5px;
+  }
+
+  label {
+    font-size: 20px;
+    margin: 5px;
+  }
+
+  .rating {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
   p {
     font-size: 16px;
   }
